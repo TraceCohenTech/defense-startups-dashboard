@@ -646,15 +646,29 @@ export default function Dashboard() {
           <h2 className="text-base sm:text-lg font-semibold text-white mb-4">
             Capital Treemap &mdash; Relative Funding Size
           </h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <svg width={0} height={0} className="absolute">
+            <defs>
+              <linearGradient id="treemapSheen" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="white" stopOpacity={0.08} />
+                <stop offset="100%" stopColor="white" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+          </svg>
+          <ResponsiveContainer width="100%" height={420}>
             <Treemap
               data={treemapData}
               dataKey="size"
               nameKey="name"
               aspectRatio={4 / 3}
               stroke="#0a0f1a"
-              content={({ x, y, width, height, name, color }: any) => {
-                if (width < 30 || height < 20) return <g />;
+              /* @ts-expect-error recharts treemap supports strokeWidth */
+              strokeWidth={2}
+              content={({ x, y, width, height, name, size, color }: any) => {
+                if (width < 24 || height < 18) return <g />;
+                const showName = width > 38 && height > 16;
+                const showAmount = width > 55 && height > 32;
+                const fs = width < 60 ? 9 : width < 90 ? 11 : width < 140 ? 13 : 14;
+                const fsAmount = width < 80 ? 8 : width < 120 ? 10 : 11;
                 return (
                   <g>
                     <rect
@@ -663,20 +677,43 @@ export default function Dashboard() {
                       width={width}
                       height={height}
                       fill={color}
-                      fillOpacity={0.85}
+                      fillOpacity={0.9}
                       rx={3}
                     />
-                    {width > 45 && height > 18 && (
+                    <rect
+                      x={x}
+                      y={y}
+                      width={width}
+                      height={height}
+                      fill="url(#treemapSheen)"
+                      rx={3}
+                    />
+                    {showName && (
                       <text
                         x={x + width / 2}
-                        y={y + height / 2}
+                        y={y + height / 2 + (showAmount ? -7 : 0)}
                         textAnchor="middle"
                         dominantBaseline="central"
                         fill="white"
-                        fontSize={width < 70 ? 8 : width < 100 ? 10 : 11}
-                        fontWeight="600"
+                        fontSize={fs}
+                        fontWeight="700"
+                        style={{ textShadow: "0 1px 3px rgba(0,0,0,0.6)" }}
                       >
                         {name}
+                      </text>
+                    )}
+                    {showAmount && (
+                      <text
+                        x={x + width / 2}
+                        y={y + height / 2 + 9}
+                        textAnchor="middle"
+                        dominantBaseline="central"
+                        fill="rgba(255,255,255,0.7)"
+                        fontSize={fsAmount}
+                        fontWeight="500"
+                        style={{ textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
+                      >
+                        {formatUSD(size)}
                       </text>
                     )}
                   </g>
