@@ -249,30 +249,78 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-[#0a0f1a]">
       {/* Hero */}
-      <header className="relative overflow-hidden border-b border-slate-800/60">
+      <header className="relative overflow-hidden border-b border-sky-500/10">
         {/* Background layers */}
         <div className="absolute inset-0 hero-grid" />
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-950/20 via-transparent to-[#0a0f1a]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1a] via-transparent to-[#0a0f1a]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-950/30 via-[#0a0f1a]/50 to-[#0a0f1a]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1a]/80 via-transparent to-[#0a0f1a]/80" />
 
-        {/* Radar element — top right */}
-        <div className="absolute top-4 right-4 sm:top-8 sm:right-8 w-24 h-24 sm:w-36 sm:h-36 opacity-[0.12]">
-          <div className="absolute inset-0 rounded-full border border-sky-500/40" />
-          <div className="absolute inset-3 sm:inset-4 rounded-full border border-sky-500/25" />
-          <div className="absolute inset-6 sm:inset-8 rounded-full border border-sky-500/15" />
+        {/* Large radar element — right side */}
+        <div className="absolute top-1/2 -translate-y-1/2 right-8 sm:right-16 lg:right-24 w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 opacity-[0.18]">
+          {/* Rings */}
+          <div className="absolute inset-0 rounded-full border border-sky-400/50" />
+          <div className="absolute inset-6 sm:inset-8 lg:inset-10 rounded-full border border-sky-400/35" />
+          <div className="absolute inset-12 sm:inset-16 lg:inset-20 rounded-full border border-sky-400/25" />
+          <div className="absolute inset-[4.5rem] sm:inset-24 lg:inset-[7.5rem] rounded-full border border-sky-400/15" />
+          {/* Crosshairs */}
+          <div className="absolute top-0 left-1/2 w-[1px] h-full bg-sky-400/20" />
+          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-sky-400/20" />
+          {/* Sweep */}
           <div className="absolute inset-0 rounded-full overflow-hidden">
-            <div className="radar-sweep absolute top-1/2 left-1/2 w-1/2 h-[2px] origin-left bg-gradient-to-r from-sky-400 to-transparent" />
+            <div className="radar-sweep absolute top-1/2 left-1/2 w-1/2 h-[2px] origin-left bg-gradient-to-r from-sky-400/90 to-transparent" />
+            <div className="radar-sweep absolute top-1/2 left-1/2 w-1/2 origin-left" style={{ transform: "rotate(-15deg)" }}>
+              <div className="h-16 sm:h-20 lg:h-24 w-full bg-gradient-to-r from-sky-400/20 to-transparent" style={{ clipPath: "polygon(0 50%, 100% 0, 100% 100%)" }} />
+            </div>
           </div>
-          <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400" />
+          {/* Center dot */}
+          <div className="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400" />
+          {/* Blips */}
+          <div className="blip-1 absolute top-[25%] left-[60%] w-1.5 h-1.5 rounded-full bg-sky-400" />
+          <div className="blip-2 absolute top-[40%] left-[75%] w-1 h-1 rounded-full bg-sky-400" />
+          <div className="blip-3 absolute top-[65%] left-[55%] w-1.5 h-1.5 rounded-full bg-emerald-400" />
+          <div className="blip-4 absolute top-[30%] left-[35%] w-1 h-1 rounded-full bg-sky-400" />
+          <div className="blip-5 absolute top-[70%] left-[40%] w-1 h-1 rounded-full bg-orange-400" />
         </div>
 
-        {/* Decorative corner brackets */}
-        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-t-2 border-sky-500/20 rounded-tl-sm" />
-        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-b-2 border-sky-500/20 rounded-br-sm" />
+        {/* Drone silhouettes */}
+        <div className="hidden sm:block absolute opacity-[0.06]">
+          <svg className="drone-float-1 absolute top-16 left-[15%] w-10 h-10" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L8 6H4l-2 2v2h4l4-4 4 4h4v-2l-2-2h-4L12 2zM4 14l2 2h4l2 2 2-2h4l2-2v-2h-4l-4 4-4-4H4v2z" className="text-sky-300"/>
+          </svg>
+          <svg className="drone-float-2 absolute top-32 left-[8%] w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L8 6H4l-2 2v2h4l4-4 4 4h4v-2l-2-2h-4L12 2zM4 14l2 2h4l2 2 2-2h4l2-2v-2h-4l-4 4-4-4H4v2z" className="text-sky-300"/>
+          </svg>
+          <svg className="drone-float-3 absolute top-20 left-[25%] w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L8 6H4l-2 2v2h4l4-4 4 4h4v-2l-2-2h-4L12 2zM4 14l2 2h4l2 2 2-2h4l2-2v-2h-4l-4 4-4-4H4v2z" className="text-sky-300"/>
+          </svg>
+        </div>
 
-        {/* Scan line */}
-        <div className="absolute top-1/2 left-0 w-full h-[1px] overflow-hidden opacity-30">
-          <div className="scan-line w-1/3 h-full bg-gradient-to-r from-transparent via-sky-400 to-transparent" />
+        {/* Crosshair element — bottom left */}
+        <div className="hidden lg:block crosshair-pulse absolute bottom-16 left-16 w-24 h-24 opacity-[0.12]">
+          <div className="absolute inset-0 rounded-full border border-sky-400/50" />
+          <div className="absolute inset-4 rounded-full border border-sky-400/30" />
+          <div className="absolute top-0 left-1/2 w-[1px] h-full bg-sky-400/40" />
+          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-sky-400/40" />
+          <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-400" />
+        </div>
+
+        {/* Corner brackets — stronger */}
+        <div className="absolute top-3 left-3 sm:top-5 sm:left-5 w-8 h-8 sm:w-12 sm:h-12 border-l-2 border-t-2 border-sky-400/25" />
+        <div className="absolute top-3 right-3 sm:top-5 sm:right-5 w-8 h-8 sm:w-12 sm:h-12 border-r-2 border-t-2 border-sky-400/25" />
+        <div className="absolute bottom-3 left-3 sm:bottom-5 sm:left-5 w-8 h-8 sm:w-12 sm:h-12 border-l-2 border-b-2 border-sky-400/25" />
+        <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 w-8 h-8 sm:w-12 sm:h-12 border-r-2 border-b-2 border-sky-400/25" />
+
+        {/* Scan lines — two of them */}
+        <div className="absolute top-[40%] left-0 w-full h-[1px] overflow-hidden opacity-40">
+          <div className="scan-line w-1/4 h-full bg-gradient-to-r from-transparent via-sky-400 to-transparent" />
+        </div>
+        <div className="absolute top-[70%] left-0 w-full h-[1px] overflow-hidden opacity-20">
+          <div className="scan-line w-1/3 h-full bg-gradient-to-r from-transparent via-cyan-400 to-transparent" style={{ animationDelay: "1.5s" }} />
+        </div>
+
+        {/* HUD text elements */}
+        <div className="hidden sm:block absolute top-5 left-1/2 -translate-x-1/2 text-[9px] font-mono uppercase tracking-[0.3em] text-sky-500/20">
+          {"// DEFENSE TECH FUNDING INTELLIGENCE //"}
         </div>
 
         <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-8 sm:pb-10">

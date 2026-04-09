@@ -68,12 +68,12 @@ body {
   background-color: rgba(59, 130, 246, 0.06);
 }
 
-/* Hero grid background */
+/* Hero grid background — stronger */
 .hero-grid {
   background-image:
-    linear-gradient(rgba(14, 165, 233, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(rgba(14, 165, 233, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* Radar sweep */
@@ -82,7 +82,7 @@ body {
   100% { transform: rotate(360deg); }
 }
 .radar-sweep {
-  animation: radar-sweep 6s linear infinite;
+  animation: radar-sweep 4s linear infinite;
 }
 
 /* Scan line */
@@ -92,17 +92,50 @@ body {
   100% { transform: translateX(100%); opacity: 0; }
 }
 .scan-line {
-  animation: scan-line 4s ease-in-out infinite;
+  animation: scan-line 3.5s ease-in-out infinite;
 }
 
 /* Pulse ring */
 @keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 0.6; }
-  50% { transform: scale(1); opacity: 0.2; }
-  100% { transform: scale(0.8); opacity: 0.6; }
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 0; }
+  100% { transform: scale(0.8); opacity: 0.8; }
 }
 .pulse-ring {
-  animation: pulse-ring 3s ease-in-out infinite;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* Blip animation for radar dots */
+@keyframes blip {
+  0%, 100% { opacity: 0; }
+  10%, 40% { opacity: 1; }
+  60% { opacity: 0.3; }
+}
+.blip-1 { animation: blip 4s ease infinite 0.5s; }
+.blip-2 { animation: blip 4s ease infinite 1.2s; }
+.blip-3 { animation: blip 4s ease infinite 2.0s; }
+.blip-4 { animation: blip 4s ease infinite 2.8s; }
+.blip-5 { animation: blip 4s ease infinite 3.4s; }
+
+/* Drone path float */
+@keyframes drone-float {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(12px, -6px); }
+  50% { transform: translate(24px, 2px); }
+  75% { transform: translate(10px, 8px); }
+  100% { transform: translate(0, 0); }
+}
+.drone-float-1 { animation: drone-float 8s ease-in-out infinite; }
+.drone-float-2 { animation: drone-float 10s ease-in-out infinite 2s; }
+.drone-float-3 { animation: drone-float 7s ease-in-out infinite 4s; }
+
+/* Crosshair pulse */
+@keyframes crosshair-pulse {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(1.05); }
+}
+.crosshair-pulse {
+  animation: crosshair-pulse 3s ease-in-out infinite;
 }
 
 /* Hero stat slide up */
