@@ -706,14 +706,6 @@ export default function Dashboard() {
           <h2 className="text-base sm:text-lg font-semibold text-white mb-4">
             Capital Treemap &mdash; Relative Funding Size
           </h2>
-          <svg width={0} height={0} className="absolute">
-            <defs>
-              <linearGradient id="treemapSheen" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="white" stopOpacity={0.08} />
-                <stop offset="100%" stopColor="white" stopOpacity={0} />
-              </linearGradient>
-            </defs>
-          </svg>
           <ResponsiveContainer width="100%" height={420}>
             <Treemap
               data={treemapData}
@@ -721,10 +713,11 @@ export default function Dashboard() {
               nameKey="name"
               aspectRatio={4 / 3}
               stroke="#0a0f1a"
-              /* @ts-expect-error recharts treemap supports strokeWidth */
-              strokeWidth={2}
-              content={({ x, y, width, height, name, size, color }: any) => {
-                if (width < 24 || height < 18) return <g />;
+              content={(props: any) => {
+                const { x, y, width, height, name } = props;
+                const value = props.size || props.value || 0;
+                const fillColor = props.color || "#475569";
+                if (!width || !height || width < 24 || height < 18) return <g />;
                 const showName = width > 38 && height > 16;
                 const showAmount = width > 55 && height > 32;
                 const fs = width < 60 ? 9 : width < 90 ? 11 : width < 140 ? 13 : 14;
@@ -736,17 +729,11 @@ export default function Dashboard() {
                       y={y}
                       width={width}
                       height={height}
-                      fill={color}
+                      fill={fillColor}
                       fillOpacity={0.9}
                       rx={3}
-                    />
-                    <rect
-                      x={x}
-                      y={y}
-                      width={width}
-                      height={height}
-                      fill="url(#treemapSheen)"
-                      rx={3}
+                      stroke="#0a0f1a"
+                      strokeWidth={2}
                     />
                     {showName && (
                       <text
@@ -773,7 +760,7 @@ export default function Dashboard() {
                         fontWeight="500"
                         style={{ textShadow: "0 1px 2px rgba(0,0,0,0.5)" }}
                       >
-                        {formatUSD(size)}
+                        {formatUSD(value)}
                       </text>
                     )}
                   </g>
