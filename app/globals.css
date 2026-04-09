@@ -3,25 +3,67 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #0a0f1a;
+  --foreground: #e8edf5;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0d1424;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e3a5f;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a5080;
+}
+
+/* Glow effect for cards */
+.card-glow {
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.1), 0 4px 24px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+.card-glow:hover {
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.25), 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Animated gradient border */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, #1e3a5f, #0ea5e9, #1e3a5f);
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* Stat counter animation */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.stat-appear {
+  animation: count-up 0.6s ease forwards;
+}
+
+/* Table row hover */
+.table-row-hover {
+  transition: background-color 0.15s ease;
+}
+.table-row-hover:hover {
+  background-color: rgba(59, 130, 246, 0.06);
 }
