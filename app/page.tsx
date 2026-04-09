@@ -69,48 +69,6 @@ function formatUSD(value: number): string {
   return `$${value.toLocaleString()}`;
 }
 
-function StatCard({
-  label,
-  value,
-  sub,
-  accent = "sky",
-}: {
-  label: string;
-  value: string;
-  sub?: string;
-  accent?: string;
-}) {
-  const borderColor =
-    accent === "orange"
-      ? "border-orange-500/30"
-      : accent === "emerald"
-      ? "border-emerald-500/30"
-      : accent === "rose"
-      ? "border-rose-500/30"
-      : "border-sky-500/30";
-
-  const textColor =
-    accent === "orange"
-      ? "text-orange-400"
-      : accent === "emerald"
-      ? "text-emerald-400"
-      : accent === "rose"
-      ? "text-rose-400"
-      : "text-sky-400";
-
-  return (
-    <div
-      className={`bg-[#0d1424] rounded-xl p-4 sm:p-5 border ${borderColor} card-glow`}
-    >
-      <p className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-400 mb-1">
-        {label}
-      </p>
-      <p className={`text-2xl sm:text-3xl font-bold ${textColor} stat-appear`}>{value}</p>
-      {sub && <p className="text-[10px] sm:text-xs text-slate-500 mt-1">{sub}</p>}
-    </div>
-  );
-}
-
 function CustomTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
@@ -288,67 +246,115 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-[#0a0f1a]">
-      {/* Header */}
-      <header className="border-b border-slate-800">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-          <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-3 sm:gap-4">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[10px] sm:text-xs uppercase tracking-widest text-slate-400">
-                  Live Market Intelligence
-                </span>
+      {/* Hero */}
+      <header className="relative overflow-hidden border-b border-slate-800/60">
+        {/* Background layers */}
+        <div className="absolute inset-0 hero-grid" />
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-950/20 via-transparent to-[#0a0f1a]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0f1a] via-transparent to-[#0a0f1a]" />
+
+        {/* Radar element — top right */}
+        <div className="absolute top-4 right-4 sm:top-8 sm:right-8 w-24 h-24 sm:w-36 sm:h-36 opacity-[0.12]">
+          <div className="absolute inset-0 rounded-full border border-sky-500/40" />
+          <div className="absolute inset-3 sm:inset-4 rounded-full border border-sky-500/25" />
+          <div className="absolute inset-6 sm:inset-8 rounded-full border border-sky-500/15" />
+          <div className="absolute inset-0 rounded-full overflow-hidden">
+            <div className="radar-sweep absolute top-1/2 left-1/2 w-1/2 h-[2px] origin-left bg-gradient-to-r from-sky-400 to-transparent" />
+          </div>
+          <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-sky-400" />
+        </div>
+
+        {/* Decorative corner brackets */}
+        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 w-6 h-6 sm:w-8 sm:h-8 border-l-2 border-t-2 border-sky-500/20 rounded-tl-sm" />
+        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 w-6 h-6 sm:w-8 sm:h-8 border-r-2 border-b-2 border-sky-500/20 rounded-br-sm" />
+
+        {/* Scan line */}
+        <div className="absolute top-1/2 left-0 w-full h-[1px] overflow-hidden opacity-30">
+          <div className="scan-line w-1/3 h-full bg-gradient-to-r from-transparent via-sky-400 to-transparent" />
+        </div>
+
+        <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 pt-10 sm:pt-14 pb-8 sm:pb-10">
+          {/* Top bar */}
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
+            <div className="flex items-center gap-2.5">
+              <div className="relative">
+                <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                <div className="absolute inset-0 w-2 h-2 rounded-full bg-emerald-400 pulse-ring" />
               </div>
-              <h1 className="text-2xl sm:text-4xl font-bold text-white tracking-tight">
-                $10M+ Defense Startup Rounds
-              </h1>
-              <p className="text-sm sm:text-lg text-slate-400 mt-1">
-                US &amp; Europe &middot; 2025&ndash;2026 &middot; {companies.length} Companies &middot;{" "}
-                {formatUSD(totalCapital)} Total Capital
-              </p>
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-slate-400 font-medium">
+                Defense &amp; National Security
+              </span>
+              <span className="hidden sm:inline text-slate-600 mx-1">/</span>
+              <span className="hidden sm:inline text-[10px] sm:text-xs uppercase tracking-[0.2em] text-slate-500">
+                Venture Capital Intelligence
+              </span>
             </div>
-            <div className="text-left sm:text-right text-[10px] sm:text-xs text-slate-500">
-              <p>
+            <div className="text-[10px] sm:text-xs text-slate-500 font-mono">
+              APR 2026
+            </div>
+          </div>
+
+          {/* Title block */}
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="h-[2px] w-8 sm:w-12 bg-gradient-to-r from-sky-400 to-transparent" />
+              <span className="text-[10px] sm:text-xs text-sky-400 uppercase tracking-[0.15em] font-medium">
+                Market Report
+              </span>
+            </div>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1]">
+              $10M+ Defense
+              <br />
+              <span className="bg-gradient-to-r from-sky-400 via-cyan-300 to-sky-400 bg-clip-text text-transparent">
+                Startup Rounds
+              </span>
+            </h1>
+            <p className="text-sm sm:text-lg text-slate-400 mt-3 sm:mt-4 max-w-xl">
+              {companies.length} companies across the US &amp; Europe &middot; 2025&ndash;2026
+            </p>
+            <div className="flex items-center gap-3 mt-3">
+              <span className="text-[10px] sm:text-xs text-slate-500">
                 Data via{" "}
                 <a
                   href="https://x.com/IvanLandabaso/status/2041818661078413538"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sky-400 hover:text-sky-300 transition-colors"
+                  className="text-sky-400/70 hover:text-sky-300 transition-colors"
                 >
                   @IvanLandabaso
                 </a>
-                {" "}&middot; CrunchBase &middot; 2025&ndash;Q1 2026
-              </p>
-              <p>Last updated: April 2026</p>
+                {" "}&middot; CrunchBase
+              </span>
+            </div>
+          </div>
+
+          {/* Hero KPI strip */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+            <div className="hero-stat-in hero-stat-in-d1 bg-white/[0.03] backdrop-blur-sm rounded-lg p-4 sm:p-5 border border-white/[0.06]">
+              <p className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 mb-1">Total Capital</p>
+              <p className="text-2xl sm:text-3xl font-bold text-white">{formatUSD(totalCapital)}</p>
+              <p className="text-[10px] sm:text-xs text-slate-500 mt-1">{companies.length} companies tracked</p>
+            </div>
+            <div className="hero-stat-in hero-stat-in-d2 bg-white/[0.03] backdrop-blur-sm rounded-lg p-4 sm:p-5 border border-white/[0.06]">
+              <p className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 mb-1">US Capital</p>
+              <p className="text-2xl sm:text-3xl font-bold text-emerald-400">{formatUSD(usCapital)}</p>
+              <p className="text-[10px] sm:text-xs text-slate-500 mt-1">{companies.filter((c) => c.region === "North America").length} companies</p>
+            </div>
+            <div className="hero-stat-in hero-stat-in-d3 bg-white/[0.03] backdrop-blur-sm rounded-lg p-4 sm:p-5 border border-white/[0.06]">
+              <p className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 mb-1">Europe Capital</p>
+              <p className="text-2xl sm:text-3xl font-bold text-orange-400">{formatUSD(euCapital)}</p>
+              <p className="text-[10px] sm:text-xs text-slate-500 mt-1">{companies.filter((c) => c.region === "Europe").length} companies</p>
+            </div>
+            <div className="hero-stat-in hero-stat-in-d4 bg-white/[0.03] backdrop-blur-sm rounded-lg p-4 sm:p-5 border border-white/[0.06]">
+              <p className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 mb-1">Top 5 Share</p>
+              <p className="text-2xl sm:text-3xl font-bold text-rose-400">{((top5Capital / totalCapital) * 100).toFixed(0)}%</p>
+              <p className="text-[10px] sm:text-xs text-slate-500 mt-1">{formatUSD(top5Capital)} concentrated</p>
             </div>
           </div>
         </div>
       </header>
 
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-10">
-        {/* KPI Row */}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-          <StatCard label="Total Capital" value={formatUSD(totalCapital)} sub={`${companies.length} companies`} />
-          <StatCard
-            label="US Capital"
-            value={formatUSD(usCapital)}
-            sub={`${companies.filter((c) => c.region === "North America").length} companies`}
-            accent="emerald"
-          />
-          <StatCard
-            label="Europe Capital"
-            value={formatUSD(euCapital)}
-            sub={`${companies.filter((c) => c.region === "Europe").length} companies`}
-            accent="orange"
-          />
-          <StatCard
-            label="Top 5 Concentration"
-            value={`${((top5Capital / totalCapital) * 100).toFixed(0)}%`}
-            sub={formatUSD(top5Capital)}
-            accent="rose"
-          />
-        </section>
 
         {/* Charts Row 1: Top 10 + Category Breakdown */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
