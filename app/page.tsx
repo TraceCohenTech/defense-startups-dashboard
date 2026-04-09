@@ -61,6 +61,8 @@ const FLAG_EMOJI: Record<string, string> = {
   FR: "\u{1F1EB}\u{1F1F7}",
   ES: "\u{1F1EA}\u{1F1F8}",
   NL: "\u{1F1F3}\u{1F1F1}",
+  FI: "\u{1F1EB}\u{1F1EE}",
+  EE: "\u{1F1EA}\u{1F1EA}",
 };
 
 function formatUSD(value: number): string {
