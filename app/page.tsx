@@ -356,6 +356,66 @@ export default function Dashboard() {
 
       <main className="max-w-[1400px] mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-10">
 
+        {/* Fun Facts */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          {[
+            {
+              icon: "\u{1F6E1}\uFE0F",
+              stat: `${companies.filter(c => (c.founded_year as number) >= 2022).length} of ${companies.length}`,
+              label: "companies founded since 2022",
+              detail: "The defense tech boom is brand new \u2014 most of these companies didn\u2019t exist 4 years ago",
+            },
+            {
+              icon: "\u{1F680}",
+              stat: formatUSD(top10[1]?.total || 0),
+              label: "raised by Saronic in ~2 years",
+              detail: "Founded in 2022, Saronic became one of the fastest defense startups to reach unicorn status",
+            },
+            {
+              icon: "\u{1F3AF}",
+              stat: `${companies.filter(c => c.notable_investors?.includes("Andreessen Horowitz")).length}`,
+              label: "companies backed by a16z",
+              detail: "Andreessen Horowitz is the most active investor in this dataset, spanning drones to hypersonics",
+            },
+            {
+              icon: "\u{1F1EA}\u{1F1FA}",
+              stat: `${companies.filter(c => c.region === "Europe").length} European cos`,
+              label: `across ${Array.from(new Set(companies.filter(c => c.region === "Europe").map(c => c.headquarters_country))).filter(Boolean).length} countries`,
+              detail: "European defense sovereignty is driving a new wave of homegrown defense tech startups",
+            },
+            {
+              icon: "\u26A1",
+              stat: `${companies.filter(c => ["counter_drone", "directed_energy"].includes(c.primary_category as string)).length} companies`,
+              label: "focused on counter-drone",
+              detail: "Counter-UAS is the hottest niche \u2014 from AI-guided guns to directed energy lasers",
+            },
+            {
+              icon: "\u{1F4E1}",
+              stat: `${companies.filter(c => c.hardware_software_mix === "software_only" || c.hardware_software_mix === "software_heavy").length} of ${companies.length}`,
+              label: "are software-first",
+              detail: "Unlike old defense, modern startups lead with AI and software before hardware",
+            },
+          ].map((fact, i) => (
+            <div
+              key={i}
+              className="bg-[#0d1424] rounded-xl p-4 border border-slate-800/60 hover:border-slate-700 transition-colors group"
+            >
+              <div className="flex items-start gap-3">
+                <span className="text-lg sm:text-xl flex-shrink-0 mt-0.5">{fact.icon}</span>
+                <div className="min-w-0">
+                  <p className="text-white font-bold text-base sm:text-lg leading-tight">
+                    {fact.stat}{" "}
+                    <span className="text-slate-400 font-normal text-xs sm:text-sm">{fact.label}</span>
+                  </p>
+                  <p className="text-[10px] sm:text-xs text-slate-500 mt-1.5 leading-relaxed">
+                    {fact.detail}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </section>
+
         {/* Charts Row 1: Top 10 + Category Breakdown */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <div className="bg-[#0d1424] rounded-xl p-4 sm:p-6 border border-slate-800 card-glow">
